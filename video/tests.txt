@@ -1,0 +1,14 @@
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > sets the operator and the cap at deployment
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses school registration from anyone but the operator
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > seals a remittance as a bare commitment: no school, purpose, amount or sender on the ledger
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > settles a tuition payment to the school it names
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses a purpose the school does not accept (exam fee)
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses to settle the same remittance twice
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses a school claiming a remittance addressed to another school
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses a remittance that was never sealed
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses a forged opening: changing the amount breaks the commitment
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses an unregistered school, even with a valid remittance
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > refuses an amount over the cap, and a zero amount
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > lets an auditor verify one remittance from its opening, and nothing else
+ ✓ src/test/kirogi.test.ts > Kirogi on Midnight > keeps settlements unlinkable to sealings: the nullifier is not the commitment
+      Tests  13 passed (13)

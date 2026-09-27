@@ -7,6 +7,8 @@ else. On Midnight, the chain enforces that without ever learning who sent it, ho
 what it was for. An auditor can check a single remittance when the family hands over its opening,
 and still sees nothing about the others.
 
+**[Demo page](https://choiaewoooon.github.io/kirogi-midnight/)** · **[Demo video, 46 s](https://choiaewoooon.github.io/kirogi-midnight/kirogi-midnight-demo.mp4)**
+
 > 기러기(*kirogi*, wild goose) is what Korea calls a parent who works abroad while the family lives
 > on the other side of a border. Roughly $900B a year crosses borders this way.
 
@@ -132,6 +134,8 @@ contract/src/kirogi.compact        the contract
 contract/src/witnesses.ts          private state and witnesses (secret key, remittance, Merkle path)
 contract/src/test/                 in-memory simulator and 13 tests
 demo/story.ts                      the demo flow
+docs/                              the demo page and video (GitHub Pages)
+video/                             scene sources and build script for the video
 ```
 
 Built with the Compact compiler 0.34.0 (language 0.26), `@midnight-ntwrk/compact-runtime` 0.19.0.

@@ -1,0 +1,34 @@
+<b>1. The operator registers a school and what it accepts</b>
+  <span class="t-chain">chain  </span> school b67ff2c9… accepts tuition, dormitory, books (public: a school&#x27;s policy is not a secret)
+
+<b>2. A parent abroad seals three remittances</b>
+  <span class="t-priv">parent </span> tuition, 1,200.00 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 82176d139a772d64…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+  <span class="t-priv">parent </span> books, 45.50 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 25cab1f083807dde…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+  <span class="t-priv">parent </span> exam fee, 80.00 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 506b249ea1c2e44b…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+
+<b>3. The school settles what is addressed to it</b>
+  <span class="t-priv">school </span> settled tuition, 1,200.00 USDC
+  <span class="t-chain">chain  </span> school b67ff2c9… settled one remittance, nullifier 7094b0f2df71a7d2… (which one, from whom, how much: not on the chain)
+  <span class="t-priv">school </span> settled books, 45.50 USDC
+  <span class="t-chain">chain  </span> school b67ff2c9… settled one remittance, nullifier eec4d289c89e07a5… (which one, from whom, how much: not on the chain)
+  <span class="t-no">refused</span> exam fee: Purpose not accepted by this school
+
+<b>4. Attempts the contract refuses</b>
+  <span class="t-no">refused</span> settle the tuition again: Remittance already settled
+  <span class="t-no">refused</span> a school claims a remittance meant for another: This remittance is addressed to another school
+  <span class="t-no">refused</span> the school inflates the amount it settles: Remittance was never sealed
+  <span class="t-no">refused</span> seal 12,000 USDC, over the cap: Amount is over the per-remittance cap
+
+<b>5. What the chain holds</b>
+  <span class="t-chain">chain  </span> 3 sealed, 2 settled, 1 school registered
+  <span class="t-chain">chain  </span> no sender, no amount, no purpose, no link between a sealing and a settlement
+  <span class="t-chain">chain  </span> visible by design: which registered school settled, and when
+
+<b>6. An auditor checks one remittance, with the family&#x27;s consent</b>
+  <span class="t-priv">auditor</span> given the opening of one remittance: tuition, 1,200.00 USDC
+  <span class="t-priv">auditor</span> sealed:  yes
+  <span class="t-priv">auditor</span> settled: yes
+  <span class="t-priv">auditor</span> the other two remittances stay hashes
