@@ -7,7 +7,7 @@ else. On Midnight, the chain enforces that without ever learning who sent it, ho
 what it was for. An auditor can check a single remittance when the family hands over its opening,
 and still sees nothing about the others.
 
-**[Demo page](https://choiaewoooon.github.io/kirogi-midnight/)** · **[Demo video, 46 s](https://choiaewoooon.github.io/kirogi-midnight/kirogi-midnight-demo.mp4)**
+**[Demo page](https://choiaewoooon.github.io/kirogi-midnight/)** · **[Demo video, 1:39 narrated](https://choiaewoooon.github.io/kirogi-midnight/kirogi-midnight-demo.mp4)**
 
 > 기러기(*kirogi*, wild goose) is what Korea calls a parent who works abroad while the family lives
 > on the other side of a border. Roughly $900B a year crosses borders this way.
