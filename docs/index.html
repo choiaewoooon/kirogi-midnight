@@ -1,0 +1,193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kirogi on Midnight — a remittance only the school can read</title>
+<meta name="description" content="Purpose-bound remittances on Midnight: the school settles tuition, and the chain never learns who sent it, how much, or what for.">
+<meta property="og:title" content="Kirogi on Midnight">
+<meta property="og:image" content="https://choiaewoooon.github.io/kirogi-midnight/hero-geese-1400.jpg">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--sea:#0f1a26;--mist:#e7eaee;--card:#fff;--ink:#141d27;--slate:#5a6878;--rule:#d5dbe2;--ember:#e0823a;
+  --pass:#26885f;--refuse:#c2413a;--r-lg:28px;--r-md:18px;--gutter:clamp(16px,4vw,48px)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 17px/1.55 Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:6px}
+.mono{font-family:"Geist Mono",ui-monospace,monospace;font-size:.88em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;color:#fff;background:var(--sea);overflow:hidden;isolation:isolate}
+.hero__sky{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:60% 30%;
+  filter:saturate(.8) brightness(.72) hue-rotate(-12deg);animation:settle 2.4s cubic-bezier(.2,.7,.2,1) both}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,26,38,.5) 0%,rgba(15,26,38,.1) 30%,rgba(15,26,38,.2) 50%,rgba(15,26,38,.88) 100%)}
+@keyframes settle{from{transform:scale(1.06);opacity:0}to{transform:none;opacity:1}}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px var(--gutter)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:17px}
+.brand img{height:34px;width:auto}
+.brand small{font-weight:400;opacity:.7;font-size:15px}
+.pill{display:inline-flex;align-items:center;padding:11px 20px;border-radius:999px;text-decoration:none;font-size:15px;font-weight:500;background:#fff;color:var(--ink);white-space:nowrap}
+.pill:hover{background:#f1f3f5}
+.pill--glass{background:rgba(255,255,255,.14);color:#fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pill--glass:hover{background:rgba(255,255,255,.22)}
+.hero__foot{margin-top:auto;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:40px;align-items:end;padding:0 var(--gutter) clamp(36px,6vw,72px)}
+.hero h1{margin:0;font-weight:300;font-size:clamp(42px,6.6vw,96px);line-height:.98;letter-spacing:-.045em}
+.hero__lede{max-width:40ch;font-size:16px;color:rgba(255,255,255,.84)}
+.hero__lede p{margin:0 0 22px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+section{padding:clamp(72px,10vw,128px) 0}
+h2{margin:0 0 20px;font-weight:400;font-size:clamp(32px,4.4vw,56px);line-height:1.04;letter-spacing:-.035em;max-width:18ch}
+.intro{max-width:58ch;color:var(--slate);font-size:18px;margin:0 0 44px}
+.views{width:100%;border-collapse:separate;border-spacing:0;background:var(--card);border-radius:var(--r-lg);overflow:hidden;font-size:15.5px}
+.views th,.views td{padding:18px 20px;text-align:left;vertical-align:top;border-top:1px solid var(--rule)}
+.views thead th{border-top:0;color:var(--slate);font-weight:400;font-size:14px}
+.views tbody th{font-weight:500;width:26%}
+.yes{color:var(--pass)}.no{color:var(--slate)}
+.table-scroll{overflow-x:auto;border-radius:var(--r-lg)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border-radius:var(--r-md);padding:26px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--mist);font-size:14px;font-weight:500;margin-bottom:18px}
+.steps strong{display:block;font-weight:500;font-size:19px;margin-bottom:6px}
+.steps p{margin:0 0 14px;color:var(--slate);font-size:15.5px}
+.steps code{display:block;font-family:"Geist Mono",monospace;font-size:13px;color:var(--ink);background:var(--mist);border-radius:10px;padding:10px 12px}
+.term{background:var(--sea);color:#dfe6ee}
+.term h2{color:#fff}.term .intro{color:rgba(255,255,255,.7)}
+.term pre{margin:0;padding:28px;border-radius:var(--r-lg);background:#0a121b;overflow-x:auto;font:400 13.5px/1.65 "Geist Mono",monospace;white-space:pre}
+.term pre b{color:#fff;font-weight:500}
+.t-chain{color:#7fb4e6}.t-priv{color:#e8b36a}.t-no{color:#f08a80}
+.run{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.run code{font-family:"Geist Mono",monospace;font-size:13.5px;background:rgba(255,255,255,.08);padding:8px 12px;border-radius:10px}
+.limits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.limits li{padding:22px 24px;border-radius:var(--r-md);border:1px solid var(--rule);color:var(--slate);font-size:15.5px}
+.limits strong{display:block;color:var(--ink);font-weight:500;font-size:16.5px;margin-bottom:4px}
+.origin{background:var(--card);border-radius:var(--r-lg);padding:32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.origin p{margin:0;color:var(--slate);max-width:62ch}
+.origin strong{color:var(--ink);font-weight:500}
+.pill--dark{background:var(--ink);color:#fff}.pill--dark:hover{background:#26313d}
+footer{padding:40px 0 56px;border-top:1px solid var(--rule);color:var(--slate);font-size:14px}
+@media (max-width:900px){.hero__foot{grid-template-columns:1fr;gap:24px}.hero__sky{object-position:62% 30%}
+  .steps{grid-template-columns:1fr}.limits{grid-template-columns:1fr}.origin{grid-template-columns:1fr}.brand small{display:none}}
+@media (max-width:520px){.nav .pill{padding:9px 14px;font-size:14px}.term pre{padding:20px;font-size:12px}}
+@media (prefers-reduced-motion:reduce){.hero__sky{animation:none}}
+</style></head><body>
+
+<header class="hero">
+  <picture>
+    <source media="(max-width:900px)" srcset="hero-geese-1400.jpg">
+    <img class="hero__sky" src="hero-geese.jpg" alt="Wild geese crossing a dusk sky over open sea, between two distant shores" width="2164" height="727">
+  </picture>
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="./"><img src="kirogi-mark.png" alt="" width="880" height="699">Kirogi <small>on Midnight</small></a>
+    <a class="pill" href="https://github.com/choiaewoooon/kirogi-midnight">View the code</a>
+  </nav>
+  <div class="hero__foot">
+    <h1>The school gets paid.<br> Nobody else learns a thing.</h1>
+    <div class="hero__lede">
+      <p>A parent abroad sends tuition. The school settles it only if the money was sent for
+      something it accepts. Midnight checks that rule inside a zero-knowledge proof, so the chain
+      never sees who sent it, how much, or what for.</p>
+      <div class="actions">
+        <a class="pill" href="#demo">See the demo run</a>
+        <a class="pill pill--glass" href="#views">Who sees what</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="views">
+    <div class="wrap">
+      <h2>Who sees what.</h2>
+      <p class="intro">On a public chain, enforcing "tuition only" means publishing every family's
+      payment. Here the rule is enforced on data that stays on the family's device.</p>
+      <div class="table-scroll">
+      <table class="views">
+        <thead><tr><th></th><th>Sender</th><th>Amount</th><th>Purpose</th><th>Which remittance</th><th>School</th></tr></thead>
+        <tbody>
+          <tr><th>Anyone watching the chain</th><td class="no">No</td><td class="no">Only that it is under 10,000</td><td class="no">No</td><td class="no">No, settling can't be linked to sealing</td><td class="yes">Yes, when it settles</td></tr>
+          <tr><th>The school</th><td>Its own records</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Itself</td></tr>
+          <tr><th>An auditor, handed one receipt</th><td class="yes">That one</td><td class="yes">That one</td><td class="yes">That one</td><td class="yes">That one</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <h2>Three calls, one rule.</h2>
+      <p class="intro">Everything private comes in as a witness and never leaves the device. Only the values marked with <span class="mono">disclose()</span> reach the ledger.</p>
+      <ol class="steps">
+        <li><strong>The parent seals</strong><p>School, purpose, amount and a random nonce are hashed on the device. The proof shows the amount is above zero and under the cap.</p><code>seal() → commitment</code></li>
+        <li><strong>The school settles</strong><p>It proves it is the school named inside one of the sealed remittances, that it accepts the hidden purpose, and that this one was never settled.</p><code>settle() → school id, root, nullifier</code></li>
+        <li><strong>An auditor checks one</strong><p>The family hands over a single receipt. The auditor recomputes the same hashes and finds it sealed and settled. The rest stay hashes.</p><code>commitmentOf(), nullifierOf()</code></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="term" id="demo">
+    <div class="wrap">
+      <h2>The demo, as it ran.</h2>
+      <p class="intro">Output of <span class="mono">npm run demo</span> against the compiled contract. Blue is what the chain shows everyone, amber is what only one party knows, red is what the contract refused.</p>
+      <pre><b>1. The operator registers a school and what it accepts</b>
+  <span class="t-chain">chain  </span> school b67ff2c9… accepts tuition, dormitory, books (public: a school&#x27;s policy is not a secret)
+
+<b>2. A parent abroad seals three remittances</b>
+  <span class="t-priv">parent </span> tuition, 1,200.00 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 82176d139a772d64…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+  <span class="t-priv">parent </span> books, 45.50 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 25cab1f083807dde…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+  <span class="t-priv">parent </span> exam fee, 80.00 USDC to b67ff2c9…
+  <span class="t-chain">chain  </span> commitment 506b249ea1c2e44b…  (amount proven &gt; 0 and ≤ 10,000; nothing else)
+
+<b>3. The school settles what is addressed to it</b>
+  <span class="t-priv">school </span> settled tuition, 1,200.00 USDC
+  <span class="t-chain">chain  </span> school b67ff2c9… settled one remittance, nullifier 7094b0f2df71a7d2… (which one, from whom, how much: not on the chain)
+  <span class="t-priv">school </span> settled books, 45.50 USDC
+  <span class="t-chain">chain  </span> school b67ff2c9… settled one remittance, nullifier eec4d289c89e07a5… (which one, from whom, how much: not on the chain)
+  <span class="t-no">refused</span> exam fee: Purpose not accepted by this school
+
+<b>4. Attempts the contract refuses</b>
+  <span class="t-no">refused</span> settle the tuition again: Remittance already settled
+  <span class="t-no">refused</span> a school claims a remittance meant for another: This remittance is addressed to another school
+  <span class="t-no">refused</span> the school inflates the amount it settles: Remittance was never sealed
+  <span class="t-no">refused</span> seal 12,000 USDC, over the cap: Amount is over the per-remittance cap
+
+<b>5. What the chain holds</b>
+  <span class="t-chain">chain  </span> 3 sealed, 2 settled, 1 school registered
+  <span class="t-chain">chain  </span> no sender, no amount, no purpose, no link between a sealing and a settlement
+  <span class="t-chain">chain  </span> visible by design: which registered school settled, and when
+
+<b>6. An auditor checks one remittance, with the family&#x27;s consent</b>
+  <span class="t-priv">auditor</span> given the opening of one remittance: tuition, 1,200.00 USDC
+  <span class="t-priv">auditor</span> sealed:  yes
+  <span class="t-priv">auditor</span> settled: yes
+  <span class="t-priv">auditor</span> the other two remittances stay hashes</pre>
+      <div class="run"><code>npm install</code><code>npm run compact</code><code>npm test</code><code>npm run demo</code></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>What this does not claim.</h2>
+      <ul class="limits">
+        <li><strong>Money does not move yet</strong>Settling authorises a payout. Wiring it to Midnight's shielded tokens is the next step.</li>
+        <li><strong>The school is visible when it settles</strong>Institutions are public by design, and settlement timing could hint at enrolment periods.</li>
+        <li><strong>Purpose is declared by the sender</strong>The proof shows the declared purpose is one the school accepts, not how the money was spent.</li>
+        <li><strong>Auditing is voluntary</strong>The family chooses to hand over a receipt. A mandatory regulator view key is not built.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="origin">
+        <p><strong>Where this comes from.</strong> Kirogi first settled remittances on Creditcoin for BUIDL CTC 2026 Fall,
+        with every payment public. This is a new implementation on Midnight, written for the Midnight Korea Hackathon 2026:
+        the same rule, enforced on data the chain never sees.</p>
+        <a class="pill pill--dark" href="https://choiaewoooon.github.io/kirogi/">See the first Kirogi</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Kirogi on Midnight, built with Compact 0.34 for the Midnight Korea Hackathon 2026.</div></footer>
+</body></html>
