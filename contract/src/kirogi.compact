@@ -1,0 +1,117 @@
+// Kirogi on Midnight: a purpose-bound remittance whose sender, amount and purpose stay private.
+// A parent seals a remittance to a school. The school proves, in zero knowledge, that one of the
+// sealed remittances is addressed to it for a purpose it accepts, and settles it exactly once.
+// The public ledger learns that a registered school settled a remittance under the cap. Nothing else.
+
+pragma language_version >= 0.23;
+
+import CompactStandardLibrary;
+
+// What a school accepts. Set by the operator at registration, public by design:
+// a school's policy is not a secret, a family's payment is.
+export struct Policy {
+  tuition: Boolean,
+  dormitory: Boolean,
+  books: Boolean,
+  examFee: Boolean
+}
+
+// Purposes, as the sender picks them.
+export enum Purpose { TUITION, DORMITORY, BOOKS, EXAM_FEE }
+
+// The sealed content of one remittance. Only its hash goes on the ledger.
+export struct Remittance {
+  school: Bytes<32>,     // the school's public id
+  purpose: Purpose,
+  amount: Uint<64>,      // in micro-units of a USD stablecoin (6 decimals)
+  nonce: Bytes<32>       // fresh randomness: hides the rest and derives the nullifier
+}
+
+// Per-remittance cap, in micro-units: 10,000.000000. The ledger learns "under the cap", never the amount.
+export sealed ledger cap: Uint<64>;
+
+// Hash of the operator's key. Only the operator registers schools.
+export sealed ledger operator: Bytes<32>;
+
+// Registered schools and what each accepts.
+export ledger schools: Map<Bytes<32>, Policy>;
+
+// Every sealed remittance, as a commitment. Historic, so a proof against a slightly older root still verifies.
+export ledger remittances: HistoricMerkleTree<16, Bytes<32>>;
+
+// Nullifiers of settled remittances. A remittance settles once.
+export ledger settled: Set<Bytes<32>>;
+
+export ledger sealedCount: Counter;
+export ledger settledCount: Counter;
+
+witness localSecretKey(): Bytes<32>;
+witness remittanceDraft(): Remittance;
+witness remittancePath(commitment: Bytes<32>): MerkleTreePath<16, Bytes<32>>;
+
+constructor() {
+  operator = disclose(publicId(localSecretKey()));
+  cap = 10000000000;
+}
+
+// ---------- pure helpers, exported so the app and an auditor run the same code ----------
+
+export pure circuit publicId(sk: Bytes<32>): Bytes<32> {
+  return persistentHash<Vector<2, Bytes<32>>>([pad(32, "kirogi:id:"), sk]);
+}
+
+export pure circuit commitmentOf(r: Remittance): Bytes<32> {
+  return persistentHash<Vector<2, Bytes<32>>>([pad(32, "kirogi:remit:"), persistentHash<Remittance>(r)]);
+}
+
+export pure circuit nullifierOf(r: Remittance): Bytes<32> {
+  return persistentHash<Vector<2, Bytes<32>>>([pad(32, "kirogi:nul:"), r.nonce]);
+}
+
+export pure circuit accepts(p: Policy, purpose: Purpose): Boolean {
+  return (purpose == Purpose.TUITION && p.tuition)
+      || (purpose == Purpose.DORMITORY && p.dormitory)
+      || (purpose == Purpose.BOOKS && p.books)
+      || (purpose == Purpose.EXAM_FEE && p.examFee);
+}
+
+// ---------- circuits ----------
+
+// Operator: register a school and the purposes it accepts.
+export circuit registerSchool(school: Bytes<32>, policy: Policy): [] {
+  assert(publicId(localSecretKey()) == operator, "Only the operator registers schools");
+  schools.insert(disclose(school), disclose(policy));
+}
+
+// Parent: seal a remittance. The ledger gets a commitment and the fact that the amount is
+// positive and under the cap. School, purpose, amount and sender never leave the device.
+export circuit seal(): [] {
+  const r = remittanceDraft();
+  assert(r.amount > 0, "Amount must be positive");
+  assert(r.amount <= cap, "Amount is over the per-remittance cap");
+  remittances.insert(disclose(commitmentOf(r)));
+  sealedCount.increment(1);
+}
+
+// School: settle a sealed remittance addressed to it. Proves, without revealing which one or
+// who sent it: the remittance was sealed, it names this school, the purpose is one the school
+// accepts, and it has not been settled before.
+export circuit settle(): [] {
+  const r = remittanceDraft();
+  const me = publicId(localSecretKey());
+  assert(r.school == me, "This remittance is addressed to another school");
+
+  const school = disclose(me);
+  assert(schools.member(school), "School is not registered");
+  assert(accepts(schools.lookup(school), r.purpose), "Purpose not accepted by this school");
+
+  const c = commitmentOf(r);
+  const path = remittancePath(c);
+  assert(path.leaf == c, "Path does not open this remittance");
+  assert(remittances.checkRoot(disclose(merkleTreePathRoot<16, Bytes<32>>(path))), "Remittance was never sealed");
+
+  const n = disclose(nullifierOf(r));
+  assert(!settled.member(n), "Remittance already settled");
+  settled.insert(n);
+  settledCount.increment(1);
+}
