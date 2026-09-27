@@ -77,6 +77,30 @@ npm run demo        # the story below, printed as what the chain sees vs. what e
 `@midnight-ntwrk/compact-runtime`, the same circuit code the proof server proves. No wallet,
 faucet or network is needed.
 
+## It ran on a Midnight network
+
+The same `kirogi.compact` was deployed to a **local Midnight devnet** (node, indexer and proof
+server in Docker) and driven through the story with real zero-knowledge proofs from the proof
+server. Full log: [`evidence/devnet-run.txt`](evidence/devnet-run.txt).
+
+Contract `786b19edb3acefe6ba0763417d0a35550ebf15d9d3d0d8217b9370500969ebc1`
+
+| Step | Transaction id | Block |
+|---|---|---|
+| Deploy (operator) | `006a62cc2725e8d5d1e01b279e30396bcf089cba4dd23aeb7659be798dd03a3065` | 17 |
+| Register a school that accepts tuition only | `004275518a7b15ff610b76b50888ec71a3243e451dbf8154ff60fef6a1afbeacdf` | 21 |
+| Seal tuition, 1,200 USDC | `009371b49b73bdec47bb48bbd36095a9e15f3bbac72c3baa7f120a14af7110c80f` | 25 |
+| Seal exam fee, 80 USDC | `0050b2397d8b24ab5dce953e0d6980ff3334f4822967e5cfcde8d7fcede7f26706` | 29 |
+| Settle tuition (school) | `00d9c99eae584cdc87bf25eae5c7b69cf0b3921d651f612b49768f18d469a39167` | 35 |
+| Settle exam fee | refused before a transaction is built: `failed assert: Purpose not accepted by this school` | |
+
+Read back from the indexer afterwards: `sealedCount=2`, `settledCount=1`, one nullifier, one school.
+
+To reproduce (needs Docker with `docker compose`): see [`devnet/README.md`](devnet/README.md), then
+`cd devnet && npm install && npm run devnet`. The devnet package pins the stable Midnight JS 4.1.1
+stack, which pairs with Compact compiler 0.31.1; it compiles the same contract source with that
+compiler (`compact update 0.31.1 --no-set-default`). The tests and demo above use 0.34.0.
+
 ## Demo flow
 
 `npm run demo` runs this story against the compiled contract:
@@ -134,6 +158,8 @@ contract/src/kirogi.compact        the contract
 contract/src/witnesses.ts          private state and witnesses (secret key, remittance, Merkle path)
 contract/src/test/                 in-memory simulator and 13 tests
 demo/story.ts                      the demo flow
+devnet/                            deploy and run the story on a local Midnight devnet
+evidence/devnet-run.txt            the log of that run
 docs/                              the demo page and video (GitHub Pages)
 video/                             scene sources and build script for the video
 ```

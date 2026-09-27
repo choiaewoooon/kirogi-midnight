@@ -1,0 +1,52 @@
+# Kirogi on a real local Midnight devnet — full console output of 'cd devnet && npm run devnet'
+# Run: 2026-09-27 18:50 KST, macOS arm64, node v26.10.0, colima docker
+# Stack: midnight-node 0.22.3, indexer-standalone 4.0.1, proof-server 8.0.3, midnight-js 4.1.1, wallet-sdk 1.2.0, compact-runtime 0.16.0 (compactc 0.31.1)
+# ANSI color codes stripped; otherwise unedited.
+
+[18:46:43.719] INFO (43786): === 1. Starting local Midnight devnet (node + indexer + proof server) ===
+[18:46:43.723] INFO (43786): Starting test environment... path=/Users/coblin/project/Midnight 해커톤/kirogi-midnight/devnet, file=compose.yml, uid=6972208121091031
+[DelayedWaitStrategy] Starting 20000ms delay before health check...
+[DelayedWaitStrategy] Delay complete, now checking health...
+[DelayedWaitStrategy] Health check passed
+[18:47:55.246] INFO (43786): Test environment configuration: {"walletNetworkId":"undeployed","networkId":"undeployed","indexer":"http://127.0.0.1:32776/api/v4/graphql","indexerWS":"ws://127.0.0.1:32776/api/v4/graphql/ws","node":"http://127.0.0.1:32775","nodeWS":"ws://127.0.0.1:32775","proofServer":"http://127.0.0.1:32774"}
+[18:47:55.248] INFO (43786): devnet endpoints: {"walletNetworkId":"undeployed","networkId":"undeployed","indexer":"http://127.0.0.1:32776/api/v4/graphql","indexerWS":"ws://127.0.0.1:32776/api/v4/graphql/ws","node":"http://127.0.0.1:32775","nodeWS":"ws://127.0.0.1:32775","proofServer":"http://127.0.0.1:32774"}
+[18:47:55.248] INFO (43786): Initializing wallet builder for undeployed
+[18:47:55.397] INFO (43786): Creating dust wallet with params: {"indexerClientConnection":{"indexerHttpUrl":"http://127.0.0.1:32776/api/v4/graphql","indexerWsUrl":"ws://127.0.0.1:32776/api/v4/graphql/ws"},"provingServerUrl":"http://127.0.0.1:32774/","networkId":"undeployed","relayURL":"ws://127.0.0.1:32775/","txHistoryStorage":{"storage":{}},"costParameters":{"ledgerParams":{"__wbg_ptr":4654560},"additionalFeeOverhead":"500000000000000000","feeBlocksMargin":5}}
+[18:47:55.437] INFO (43786): Getting initial state of wallet...
+[18:47:55.452] INFO (43786): Your wallet seed is: 0000000000000000000000000000000000000000000000000000000000000001 and your address is: 1bd4f827be97ff013c4a702e4b08f30ec378728a54670cf7cc92cb9b1a14eff6
+[18:47:55.458] INFO (43786): Starting wallet...
+[18:47:55.492] INFO (43786): Getting initial state of wallet...
+[18:47:55.504] INFO (43786): Using unshielded address: mn_addr_undeployed1h3ssm5ru2t6eqy4g3she78zlxn96e36ms6pq996aduvmateh9p9sk96u7s waiting for funds...
+[18:47:55.504] INFO (43786): Your wallet initial balance is: 0 (not yet initialized)
+[18:47:55.505] INFO (43786): Waiting to receive tokens...
+2026-09-27 18:47:56        RPC-CORE: subscribeRuntimeVersion(): RuntimeVersion:: disconnected from ws://127.0.0.1:32775/: 1000:: Normal Closure
+2026-09-27 18:47:56        RPC-CORE: subscribeRuntimeVersion(): RuntimeVersion:: disconnected from ws://127.0.0.1:32775/: 1000:: Normal Closure
+[18:48:25.651] INFO (43786): Sync complete
+[18:48:25.652] INFO (43786): Wallet balances after sync - Shielded: {"0000000000000000000000000000000000000000000000000000000000000000":"250000000000000","0000000000000000000000000000000000000000000000000000000000000001":"50000000000000","0000000000000000000000000000000000000000000000000000000000000002":"50000000000000"}, Unshielded: {"0000000000000000000000000000000000000000000000000000000000000000":"250000000000000"}, Dust: 1250000000000000000000000
+[18:48:25.654] INFO (43786): genesis wallet NIGHT balance: 250000000000000
+[18:48:25.660] INFO (43786): === 2. Operator deploys Kirogi (real ZK keys, real proof server) ===
+[18:48:45.235] INFO (43786): CONTRACT ADDRESS: 786b19edb3acefe6ba0763417d0a35550ebf15d9d3d0d8217b9370500969ebc1
+[18:48:45.235] INFO (43786): deploy: txId=006a62cc2725e8d5d1e01b279e30396bcf089cba4dd23aeb7659be798dd03a3065 txHash=f0bec5edf523f4fc4af88d88d558c04db70e56876909b58f898c954c55cc7a3e block=17
+[18:48:45.235] INFO (43786): === 3. Operator registers the school (accepts TUITION only) ===
+[18:48:45.235] INFO (43786): -- acting as operator
+[18:49:08.028] INFO (43786): registerSchool: txId=004275518a7b15ff610b76b50888ec71a3243e451dbf8154ff60fef6a1afbeacdf txHash=27d0ddd4f147b8828cb1349e5eea67a0ec3dd8f5d46d60caf410b471afb2f347 block=21
+[18:49:08.028] INFO (43786): school public id: f95ead11693dc28686e3507a8c2615fce5f693d3617819e204fe349660fe2721
+[18:49:08.028] INFO (43786): === 4. Parent seals two remittances (amount/purpose/school stay private) ===
+[18:49:08.028] INFO (43786): -- acting as parent
+[18:49:32.510] INFO (43786): seal tuition 1200 USDC: txId=009371b49b73bdec47bb48bbd36095a9e15f3bbac72c3baa7f120a14af7110c80f txHash=fce08a055894c2a8811a847d9e8e0950ea2a9c9d251b777a9d5de37e4116db96 block=25
+[18:49:32.511] INFO (43786): -- acting as parent
+[18:49:57.193] INFO (43786): seal exam fee 80 USDC: txId=0050b2397d8b24ab5dce953e0d6980ff3334f4822967e5cfcde8d7fcede7f26706 txHash=d863751c6fe898faaee3821623ab5a32bf0481865c2e026699a3bb9b4b7986cd block=29
+[18:49:57.193] INFO (43786): === 5. School settles the tuition remittance (must succeed) ===
+[18:49:57.193] INFO (43786): -- acting as school
+[18:50:32.689] INFO (43786): settle tuition: txId=00d9c99eae584cdc87bf25eae5c7b69cf0b3921d651f612b49768f18d469a39167 txHash=a348a51cb9faf382c86152d9a1c855d1f03791a0f5a3937584214665560d2a5d block=35
+[18:50:32.689] INFO (43786): === 6. School tries to settle the exam-fee remittance (must be refused) ===
+[18:50:32.690] INFO (43786): -- acting as school
+[18:50:33.192] INFO (43786): REFUSED as expected: Unexpected error executing scoped transaction '<unnamed>': Error: failed assert: Purpose not accepted by this school
+[18:50:33.193] INFO (43786): === 7. Public ledger state read back from the indexer ===
+[18:50:33.220] INFO (43786): sealedCount=2 settledCount=1
+[18:50:33.220] INFO (43786): remittances tree first free index=2 (commitments only)
+[18:50:33.228] INFO (43786): settled nullifiers=1 registered schools=1
+[18:50:33.235] INFO (43786): cap=10000000000 operator=1ac727191c19e4af10a5296296c185d8688d071e73b278bff38cae0c6c4ba381
+[18:50:33.245] INFO (43786): RESULT: OK (sealed 2, settled 1, exam fee refused)
+[18:50:33.280] INFO (43786): Stopping devnet containers...
+[18:50:33.280] INFO (43786): Shutting down test environment...

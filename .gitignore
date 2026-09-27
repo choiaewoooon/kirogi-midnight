@@ -61,4 +61,5 @@ jspm_packages/
 managed/
 
 .claude
-.midnight-expertvideo/frames/
+.midnight-expert
+video/frames/

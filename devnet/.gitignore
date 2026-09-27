@@ -1,0 +1,5 @@
+node_modules/
+logs/
+devnet-run.log
+midnight-level-db/
+contract/managed/
